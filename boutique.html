@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boutique - Traditions Élégantes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .shop-hero {
+            background: linear-gradient(135deg, #8B4513 0%, #A0522D 100%);
+            color: white;
+            text-align: center;
+            padding: 150px 2rem 80px;
+        }
+        
+        .shop-hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .filters {
+            background: #fff;
+            padding: 2rem 0;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .filter-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #8B4513;
+            background: transparent;
+            color: #8B4513;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .filter-btn.active,
+        .filter-btn:hover {
+            background: #8B4513;
+            color: white;
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 3rem 0;
+        }
+        
+        .shop-product-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .shop-product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .shop-product-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+        
+        .shop-product-info {
+            padding: 1.5rem;
+        }
+        
+        .product-category {
+            color: #8B4513;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        
+        .shop-product-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .product-description {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+        
+        .price-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .current-price {
+            font-size: 1.4rem;
+            font-weight: 600;
+            color: #8B4513;
+        }
+        
+        .original-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1rem;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .quick-view {
+            flex: 1;
+            background: transparent;
+            border: 2px solid #8B4513;
+            color: #8B4513;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+        
+        .quick-view:hover {
+            background: #8B4513;
+            color: white;
+        }
+        
+        .add-to-cart-shop {
+            flex: 2;
+            background: #8B4513;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        .add-to-cart-shop:hover {
+            background: #A0522D;
+        }
+        
+        @media (max-width: 768px) {
+            .shop-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .filter-container {
+                gap: 1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="nav-container">
+                <div class="nav-logo">
+                    <img src="logo2.png" alt="Traditions Élégantes" class="logo">
+                    <h1>Traditions Élégantes</h1>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">ACCUEIL</a></li>
+                    <li><a href="about.html" class="nav-link">À PROPOS</a></li>
+                    <li><a href="boutique.html" class="nav-link active">BOUTIQUE</a></li>
+                    <li><a href="contact.html" class="nav-link">CONTACT</a></li>
+                    <li><a href="blog.html" class="nav-link">BLOG</a></li>
+                </ul>
+                <div class="nav-icons">
+                    <span class="material-icons">search</span>
+                    <span class="material-icons">shopping_bag</span>
+                    <span class="material-icons hamburger" onclick="toggleSidebar()">menu</span>
+                </div>
+            </div>
+            
+            <ul class="sidebar">
+                <li><a class="close-menu" onclick="toggleSidebar()">
+                    <span class="material-icons">close</span>
+                </a></li>
+                <li><a href="index.html">ACCUEIL</a></li>
+                <li><a href="about.html">À PROPOS</a></li>
+                <li><a href="boutique.html">BOUTIQUE</a></li>
+                <li><a href="contact.html">CONTACT</a></li>
+                <li><a href="blog.html">BLOG</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="shop-hero">
+            <h1>Notre Collection</h1>
+            <p>Découvrez notre sélection exceptionnelle de vêtements traditionnels authentiques</p>
+        </section>
+
+        <!-- Filtres -->
+        <section class="filters">
+            <div class="container">
+                <div class="filter-container">
+                    <button class="filter-btn active" data-filter="all">Tous</button>
+                    <button class="filter-btn" data-filter="african">Africains</button>
+                    <button class="filter-btn" data-filter="asian">Asiatiques</button>
+                    <button class="filter-btn" data-filter="european">Européens</button>
+                    <button class="filter-btn" data-filter="middle-east">Moyen-Orient</button>
+                    <button class="filter-btn" data-filter="accessories">Accessoires</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Grille de produits -->
+        <section class="products-section">
+            <div class="container">
+                <div class="products-grid">
+                    <!-- Produit 1 -->
+                    <div class="shop-product-card" data-category="african">
+                        <img src="sandiro.jpeg" alt="Kaftan Marocain Brodé" class="shop-product-image">
+                        <div class="shop-product-info">
+                            <div class="product-category">Vêtements Africains</div>
+                            <h3 class="shop-product-title">Kaftan Marocain Brodé</h3>
+                            <p class="product-description">Magnifique kaftan traditionnel marocain avec broderies dorées à la main</p>
+                            <div class="price-section">
+                                <span class="current-price">299€</span>
+                                <span class="original-price">349€</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="quick-view">Aperçu</button>
+                                <button class="add-to-cart-shop">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produit 2 -->
+                    <div class="shop-product-card" data-category="african">
+                        <img src="clio5.jpeg" alt="Dashiki Africain" class="shop-product-image">
+                        <div class="shop-product-info">
+                            <div class="product-category">Vêtements Africains</div>
+                            <h3 class="shop-product-title">Dashiki Africain Authentique</h3>
+                            <p class="product-description">Dashiki traditionnel aux motifs colorés, parfait pour toutes occasions</p>
+                            <div class="price-section">
+                                <span class="current-price">149€</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="quick-view">Aperçu</button>
+                                <button class="add-to-cart-shop">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produit 3 -->
+                    <div class="shop-product-card" data-category="asian">
+                        <img src="logan1.jpeg" alt="Kimono Japonais" class="shop-product-image">
+                        <div class="shop-product-info">
+                            <div class="product-category">Vêtements Asiatiques</div>
+                            <h3 class="shop-product-title">Kimono Japonais Traditionnel</h3>
+                            <p class="product-description">Kimono en soie authentique avec motifs floraux délicats</p>
+                            <div class="price-section">
+                                <span class="current-price">599€</span>
+                                <span class="original-price">699€</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="quick-view">Aperçu</button>
+                                <button class="add-to-cart-shop">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produit 4 -->
+                    <div class="shop-product-card" data-category="european">
+                        <img src="stepway.jpeg" alt="Costume Traditionnel Bavarois" class="shop-product-image">
+                        <div class="shop-product-info">
+                            <div class="product-category">Vêtements Européens</div>
+                            <h3 class="shop-product-title">Costume Traditionnel Bavarois</h3>
+                            <p class="product-description">Lederhosen authentique avec broderies traditionnelles</p>
+                            <div class="price-section">
+                                <span class="current-price">249€</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="quick-view">Aperçu</button>
+                                <button class="add-to-cart-shop">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produit 5 -->
+                    <div class="shop-product-card" data-category="middle-east">
+                        <img src="sandiro.jpeg" alt="Thobe Arabe" class="shop-product-image">
+                        <div class="shop-product-info">
+                            <div class="product-category">Moyen-Orient</div>
+                            <h3 class="shop-product-title">Thobe Arabe Élégant</h3>
+                            <p class="product-description">Thobe traditionnel en coton fin avec finitions de qualité</p>
+                            <div class="price-section">
+                                <span class="current-price">189€</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="quick-view">Aperçu</button>
+                                <button class="add-to-cart-shop">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produit 6 -->
+                    <div class="shop-product-card" data-category="asian">
+                        <img src="clio5.jpeg" alt="Hanbok Coréen" class="shop-product-image">
+                        <div class="shop-product-info">
+                            <div class="product-category">Vêtements Asiatiques</div>
+                            <h3 class="shop-product-title">Hanbok Coréen</h3>
+                            <p class="product-description">Hanbok traditionnel coréen aux couleurs vives et élégantes</p>
+                            <div class="price-section">
+                                <span class="current-price">379€</span>
+                                <span class="original-price">429€</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="quick-view">Aperçu</button>
+                                <button class="add-to-cart-shop">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produit 7 -->
+                    <div class="shop-product-card" data-category="accessories">
+                        <img src="logan1.jpeg" alt="Écharpe Traditionnelle" class="shop-product-image">
+                        <div class="shop-product-info">
+                            <div class="product-category">Accessoires</div>
+                            <h3 class="shop-product-title">Écharpe Traditionnelle</h3>
+                            <p class="product-description">Écharpe tissée à la main avec motifs traditionnels</p>
+                            <div class="price-section">
+                                <span class="current-price">79€</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="quick-view">Aperçu</button>
+                                <button class="add-to-cart-shop">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Produit 8 -->
+                    <div class="shop-product-card" data-category="african">
+                        <img src="stepway.jpeg" alt="Boubou Africain" class="shop-product-image">
+                        <div class="shop-product-info">
+                            <div class="product-category">Vêtements Africains</div>
+                            <h3 class="shop-product-title">Boubou Africain Grand</h3>
+                            <p class="product-description">Boubou traditionnel africain en coton wax authentique</p>
+                            <div class="price-section">
+                                <span class="current-price">199€</span>
+                            </div>
+                            <div class="product-actions">
+                                <button class="quick-view">Aperçu</button>
+                                <button class="add-to-cart-shop">Ajouter au panier</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Traditions Élégantes</h3>
+                    <p>Votre destination pour les vêtements traditionnels authentiques du monde entier.</p>
+                    <div class="socials-container">
+                        <a data-social="Facebook" style="--accent-color: #106bff;" href="#">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Facebook</title><path d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978.401 0 .955.042 1.468.103a8.68 8.68 0 0 1 1.141.195v3.325a8.623 8.623 0 0 0-.653-.036 26.805 26.805 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.686 1.686 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647Z"/></svg>
+                        </a>
+                        <a data-social="Instagram" style="--accent-color: #fe107c;" href="#">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>Instagram</title><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg>
+                        </a>
+                        <a data-social="Twitter" style="--accent-color: black;" href="#">
+                            <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><title>X</title><path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/></svg>
+                        </a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Navigation</h3>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="about.html">À Propos</a></li>
+                        <li><a href="boutique.html">Boutique</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Collections</h3>
+                    <ul>
+                        <li><a href="#">Vêtements Africains</a></li>
+                        <li><a href="#">Vêtements Asiatiques</a></li>
+                        <li><a href="#">Vêtements Européens</a></li>
+                        <li><a href="#">Vêtements du Moyen-Orient</a></li>
+                        <li><a href="#">Accessoires</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><strong>Email:</strong> info@traditions-elegantes.com</p>
+                    <p><strong>Téléphone:</strong> +33 1 23 45 67 89</p>
+                    <p><strong>Adresse:</strong> 123 Rue de la Mode, 75001 Paris, France</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Traditions Élégantes. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Fonctionnalité de filtrage
+        document.addEventListener('DOMContentLoaded', function() {
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const productCards = document.querySelectorAll('.shop-product-card');
+
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Retirer la classe active de tous les boutons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    // Ajouter la classe active au bouton cliqué
+                    this.classList.add('active');
+
+                    const filterValue = this.getAttribute('data-filter');
+
+                    productCards.forEach(card => {
+                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
+                            card.style.display = 'block';
+                            card.style.animation = 'fadeIn 0.5s ease';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            });
+
+            // Gestion des boutons d'ajout au panier
+            const addToCartButtons = document.querySelectorAll('.add-to-cart-shop');
+            addToCartButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.shop-product-card');
+                    const productName = productCard.querySelector('.shop-product-title').textContent;
+                    const productPrice = productCard.querySelector('.current-price').textContent;
+                    
+                    addToCart(productName, productPrice);
+                });
+            });
+
+            // Gestion des boutons d'aperçu
+            const quickViewButtons = document.querySelectorAll('.quick-view');
+            quickViewButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const productCard = this.closest('.shop-product-card');
+                    const productName = productCard.querySelector('.shop-product-title').textContent;
+                    alert(`Aperçu de "${productName}" - Fonctionnalité à implémenter`);
+                });
+            });
+        });
+
+        // Animation CSS pour fadeIn
+        const style = document.createElement('style');
+        style.textContent += `
+            @keyframes fadeIn {
+                from { opacity: 0; transform: translateY(20px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
