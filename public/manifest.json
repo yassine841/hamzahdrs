@@ -1,0 +1,40 @@
+{
+  "name": "Soccer Manager",
+  "short_name": "Soccer Manager",
+  "description": "Manage your football team, train players, and compete in tournaments",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#00B04F",
+  "theme_color": "#00B04F",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable any"
+    },
+    {
+      "src": "/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "/screenshot-wide.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    },
+    {
+      "src": "/screenshot-narrow.png",
+      "sizes": "640x1136",
+      "type": "image/png",
+      "form_factor": "narrow"
+    }
+  ],
+  "categories": ["games", "sports"],
+  "lang": "en-US"
+}
